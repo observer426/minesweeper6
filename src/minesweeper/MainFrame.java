@@ -462,7 +462,14 @@ public class MainFrame extends JFrame {
 
         //道具3(本回合开始使用，效果：本回合最多只能走3步，但插旗正确之后分数加二)
         JButton tool3=setbtn("",60,60,20,240);
-
+        ImageIcon rr = new ImageIcon("images/技能_缺水的碎漩狂舞.png");
+        Image tempR = rr.getImage().getScaledInstance(60, 60, rr.getImage().SCALE_DEFAULT);
+        rr = new ImageIcon(tempR);
+        tool3.setIcon(rr);
+        ImageIcon rr1 = new ImageIcon("images/技能_辉煌裂片.png");
+        Image tempR1 = rr1.getImage().getScaledInstance(60, 60, rr1.getImage().SCALE_DEFAULT);
+        rr1 = new ImageIcon(tempR1);
+        tool3.setPressedIcon(rr1);
         tool3.setToolTipText("高价值目标：本回合行动步数最大变为3，但插旗成功后分数加2。 （每人限用3次，回合开始时使用）");
         tool3.addActionListener(e -> {
             controller.getOnTurn().changeTool3Num();
