@@ -419,7 +419,7 @@ public class MainFrame extends JFrame {
         Image temp3 = ii3.getImage().getScaledInstance(60, 60, ii3.getImage().SCALE_DEFAULT);
         ii3 = new ImageIcon(temp3);
         tool2.setPressedIcon(ii3);
-        tool2.setToolTipText("天命：50%概率你窃取上家上局分数，50%概率你的得分减2。(每人3次机会)");
+        tool2.setToolTipText("天命：50%概率你窃取上家上局分数，50%概率你的得分减2。 (每人3次机会)");
         tool2.addActionListener(e -> {
             Random random = new Random();
             //0表示扣分，1表示抢分
