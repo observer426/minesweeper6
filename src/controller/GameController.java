@@ -31,7 +31,16 @@ public class GameController {
     private int xCount;
     private int yCount;
     private int mineCount;
-    private Player buff;//道具指向的对象
+    private Player buff;//道具1指向的对象
+    private Player buff3;//道具3指向的对象
+
+    public Player getBuff3() {
+        return buff3;
+    }
+
+    public void setBuff3(Player buff3) {
+        this.buff3 = buff3;
+    }
 
     public void setBuff(Player buff) {
         this.buff = buff;
@@ -174,6 +183,13 @@ public class GameController {
         if (Login.select.playnum == 2) {
             if (onTurn == p1) {
                 counterP1++;
+                if (MainFrame.controller.getBuff3() != null){
+                    if (counterP1==3){
+                        MainFrame.controller.getP2().setLastScore(0);
+                        JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
+                        Main.login.getSelect().getMainFrame().upDatetitle();
+                    }
+                }
                 if (counterP1 == 5) {
                     //未点击结束按钮时，onTurn不会变的。
                     MainFrame.controller.getP2().setLastScore(0);
@@ -183,6 +199,13 @@ public class GameController {
 
             } else if (onTurn == p2) {
                 counterP2++;
+                if (MainFrame.controller.getBuff3() != null){
+                    if (counterP2==3){
+                        MainFrame.controller.getP1().setLastScore(0);
+                        JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
+                        Main.login.getSelect().getMainFrame().upDatetitle();
+                    }
+                }
                 if (counterP2 == 5) {
                     MainFrame.controller.getP1().setLastScore(0);
                     JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
@@ -193,6 +216,12 @@ public class GameController {
         if (Login.select.playnum == 3) {
             if (onTurn == p1) {
                 counterP1++;
+                if (MainFrame.controller.getBuff3() != null){
+                    if (counterP1==3){
+                        JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
+                        Main.login.getSelect().getMainFrame().upDatetitle();
+                    }
+                }
                 if (counterP1 == 5) {
                     JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
                     Main.login.getSelect().getMainFrame().upDatetitle();
@@ -200,12 +229,24 @@ public class GameController {
 
             } else if (onTurn == p2) {
                 counterP2++;
+                if (MainFrame.controller.getBuff3() != null){
+                    if (counterP2==3){
+                        JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
+                        Main.login.getSelect().getMainFrame().upDatetitle();
+                    }
+                }
                 if (counterP2 == 5) {
                     JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
                     Main.login.getSelect().getMainFrame().upDatetitle();
                 }
             } else if (onTurn == p3) {
                 counterP3++;
+                if (MainFrame.controller.getBuff3() != null){
+                    if (counterP3==3){
+                        JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
+                        Main.login.getSelect().getMainFrame().upDatetitle();
+                    }
+                }
                 if (counterP3 == 5) {
                     JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
                     Main.login.getSelect().getMainFrame().upDatetitle();
@@ -215,6 +256,12 @@ public class GameController {
         if (Login.select.playnum == 4) {
             if (onTurn == p1) {
                 counterP1++;
+                if (MainFrame.controller.getBuff3() != null){
+                    if (counterP1==3){
+                        JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
+                        Main.login.getSelect().getMainFrame().upDatetitle();
+                    }
+                }
                 if (counterP1 == 5) {
                     JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
                     Main.login.getSelect().getMainFrame().upDatetitle();
@@ -222,18 +269,36 @@ public class GameController {
 
             } else if (onTurn == p2) {
                 counterP2++;
+                if (MainFrame.controller.getBuff3() != null){
+                    if (counterP2==3){
+                        JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
+                        Main.login.getSelect().getMainFrame().upDatetitle();
+                    }
+                }
                 if (counterP2 == 5) {
                     JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
                     Main.login.getSelect().getMainFrame().upDatetitle();
                 }
             } else if (onTurn == p3) {
                 counterP3++;
+                if (MainFrame.controller.getBuff3() != null){
+                    if (counterP3==3){
+                        JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
+                        Main.login.getSelect().getMainFrame().upDatetitle();
+                    }
+                }
                 if (counterP3 == 5) {
                     JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
                     Main.login.getSelect().getMainFrame().upDatetitle();
                 }
             } else if (onTurn == p4) {
                 counterP4++;
+                if (MainFrame.controller.getBuff3() != null){
+                    if (counterP4==3){
+                        JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
+                        Main.login.getSelect().getMainFrame().upDatetitle();
+                    }
+                }
                 if (counterP4 == 5) {
                     JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
                     Main.login.getSelect().getMainFrame().upDatetitle();

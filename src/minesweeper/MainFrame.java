@@ -419,7 +419,7 @@ public class MainFrame extends JFrame {
         Image temp3 = ii3.getImage().getScaledInstance(60, 60, ii3.getImage().SCALE_DEFAULT);
         ii3 = new ImageIcon(temp3);
         tool2.setPressedIcon(ii3);
-        tool2.setToolTipText("天命：50%概率你窃取上家上局分数，50%概率你的得分减2。 (每人3次机会)");
+        tool2.setToolTipText("天命：50%概率你窃取上家上局分数，50%概率你的得分减2。 (每人限用3次)");
         tool2.addActionListener(e -> {
             Random random = new Random();
             //0表示扣分，1表示抢分
@@ -460,6 +460,18 @@ public class MainFrame extends JFrame {
         });
         this.add(tool2);
 
+        //道具3(本回合开始使用，效果：本回合最多只能走3步，但插旗正确之后分数加二)
+        JButton tool3=setbtn("",60,60,20,240);
+
+        tool3.setToolTipText("高价值目标：本回合行动步数最大变为3，但插旗成功后分数加2。 （每人限用3次，回合开始时使用）");
+        tool3.addActionListener(e -> {
+            controller.getOnTurn().changeTool3Num();
+            if (controller.getOnTurn().getTool3Num() >= 0){
+                controller.setBuff3(controller.getOnTurn());
+                System.out.println(controller.getBuff3().getUserName());
+            }
+        });
+        this.add(tool3);
 
         JButton againbtn3 = setbtn("返回主界面", 120, 30, 220, 5);
         againbtn3.addActionListener(e -> {
@@ -603,6 +615,11 @@ public class MainFrame extends JFrame {
                             MainFrame.controller.setBuff(null);
                         }
                     }
+                    if (MainFrame.controller.getBuff3() != null) {
+                        if (!MainFrame.controller.getBuff3().equals(MainFrame.controller.getOnTurn())) {
+                            MainFrame.controller.setBuff3(null);
+                        }
+                    }
                     System.out.println("Now it is " + controller.getOnTurn().getUserName() + "'s turn.");
                     controller.setCounterP1(0);
                     Main.login.getSelect().getMainFrame().upDatetitle();
@@ -616,6 +633,11 @@ public class MainFrame extends JFrame {
                     if (MainFrame.controller.getBuff() != null) {
                         if (!MainFrame.controller.getBuff().equals(MainFrame.controller.getOnTurn())) {
                             MainFrame.controller.setBuff(null);
+                        }
+                    }
+                    if (MainFrame.controller.getBuff3() != null) {
+                        if (!MainFrame.controller.getBuff3().equals(MainFrame.controller.getOnTurn())) {
+                            MainFrame.controller.setBuff3(null);
                         }
                     }
                     System.out.println("Now it is " + controller.getOnTurn().getUserName() + "'s turn.");
@@ -637,6 +659,11 @@ public class MainFrame extends JFrame {
                             MainFrame.controller.setBuff(null);
                         }
                     }
+                    if (MainFrame.controller.getBuff3() != null) {
+                        if (!MainFrame.controller.getBuff3().equals(MainFrame.controller.getOnTurn())) {
+                            MainFrame.controller.setBuff3(null);
+                        }
+                    }
                     System.out.println("Now it is " + controller.getOnTurn().getUserName() + "'s turn.");
                     controller.setCounterP1(0);
                     Main.login.getSelect().getMainFrame().upDatetitle();
@@ -652,6 +679,11 @@ public class MainFrame extends JFrame {
                             MainFrame.controller.setBuff(null);
                         }
                     }
+                    if (MainFrame.controller.getBuff3() != null) {
+                        if (!MainFrame.controller.getBuff3().equals(MainFrame.controller.getOnTurn())) {
+                            MainFrame.controller.setBuff3(null);
+                        }
+                    }
                     System.out.println("Now it is " + controller.getOnTurn().getUserName() + "'s turn.");
                     controller.setCounterP2(0);
                     Main.login.getSelect().getMainFrame().upDatetitle();
@@ -664,6 +696,11 @@ public class MainFrame extends JFrame {
                     if (MainFrame.controller.getBuff() != null) {
                         if (!MainFrame.controller.getBuff().equals(MainFrame.controller.getOnTurn())) {
                             MainFrame.controller.setBuff(null);
+                        }
+                    }
+                    if (MainFrame.controller.getBuff3() != null) {
+                        if (!MainFrame.controller.getBuff3().equals(MainFrame.controller.getOnTurn())) {
+                            MainFrame.controller.setBuff3(null);
                         }
                     }
                     System.out.println("Now it is " + controller.getOnTurn().getUserName() + "'s turn.");
@@ -684,6 +721,11 @@ public class MainFrame extends JFrame {
                             MainFrame.controller.setBuff(null);
                         }
                     }
+                    if (MainFrame.controller.getBuff3() != null) {
+                        if (!MainFrame.controller.getBuff3().equals(MainFrame.controller.getOnTurn())) {
+                            MainFrame.controller.setBuff3(null);
+                        }
+                    }
                     System.out.println("Now it is " + controller.getOnTurn().getUserName() + "'s turn.");
                     controller.setCounterP1(0);
                     Main.login.getSelect().getMainFrame().upDatetitle();
@@ -697,6 +739,11 @@ public class MainFrame extends JFrame {
                     if (MainFrame.controller.getBuff() != null) {
                         if (!MainFrame.controller.getBuff().equals(MainFrame.controller.getOnTurn())) {
                             MainFrame.controller.setBuff(null);
+                        }
+                    }
+                    if (MainFrame.controller.getBuff3() != null) {
+                        if (!MainFrame.controller.getBuff3().equals(MainFrame.controller.getOnTurn())) {
+                            MainFrame.controller.setBuff3(null);
                         }
                     }
                     System.out.println("Now it is " + controller.getOnTurn().getUserName() + "'s turn.");
@@ -713,6 +760,11 @@ public class MainFrame extends JFrame {
                             MainFrame.controller.setBuff(null);
                         }
                     }
+                    if (MainFrame.controller.getBuff3() != null) {
+                        if (!MainFrame.controller.getBuff3().equals(MainFrame.controller.getOnTurn())) {
+                            MainFrame.controller.setBuff3(null);
+                        }
+                    }
                     System.out.println("Now it is " + controller.getOnTurn().getUserName() + "'s turn.");
                     controller.setCounterP3(0);
                     Main.login.getSelect().getMainFrame().upDatetitle();
@@ -725,6 +777,11 @@ public class MainFrame extends JFrame {
                     if (MainFrame.controller.getBuff() != null) {
                         if (!MainFrame.controller.getBuff().equals(MainFrame.controller.getOnTurn())) {
                             MainFrame.controller.setBuff(null);
+                        }
+                    }
+                    if (MainFrame.controller.getBuff3() != null) {
+                        if (!MainFrame.controller.getBuff3().equals(MainFrame.controller.getOnTurn())) {
+                            MainFrame.controller.setBuff3(null);
                         }
                     }
                     System.out.println("Now it is " + controller.getOnTurn().getUserName() + "'s turn.");

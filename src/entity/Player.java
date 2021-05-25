@@ -10,15 +10,25 @@ public class Player {
     private String userName;
     private int score;
     private int mistake;
-    private int tool1Num=3;//道具1的使用次数
-    private int tool2Num=3;//道具2的使用次数
-    private int lastScore=0;//记录自己上回合的score，在又轮到自己后清零。
+    private int tool1Num = 3;//道具1的使用次数
+    private int tool2Num = 3;//道具2的使用次数
+    private int lastScore = 0;
+    private int tool3Num = 3;//记录自己上回合的score，在又轮到自己后清零。
+
     public void changeTool1Num() {
         tool1Num--;
     }
 
+    public void changeTool3Num() {
+        tool3Num--;
+    }
+
     public int getLastScore() {
         return lastScore;
+    }
+
+    public int getTool3Num() {
+        return tool3Num;
     }
 
     public void setLastScore(int lastScore) {
@@ -28,12 +38,15 @@ public class Player {
     public void changeTool2Num() {
         tool2Num--;
     }
-    public void plusLastScore(){
+
+    public void plusLastScore() {
         lastScore++;
     }
-    public void minusLastScore(){
+
+    public void minusLastScore() {
         lastScore--;
     }
+
     public int getTool1Num() {
         return tool1Num;
     }

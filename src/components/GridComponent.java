@@ -149,6 +149,11 @@ public class GridComponent extends BasicComponent {
         System.out.printf("Gird (%d,%d) is right-clicked.\n", row, col);
         if (this.status == GridStatus.Flag && getContent() == 9) {
             Music.play2();
+            if (MainFrame.controller.getBuff3()!=null){
+                //这里是道具3，如果不为空，就加2分
+                MainFrame.controller.getOnTurn().plusLastScore();
+                MainFrame.controller.getOnTurn().addScore();
+            }
             MainFrame.controller.getOnTurn().plusLastScore();//加上局得分
             MainFrame.controller.getOnTurn().addScore();
             MainFrame.controller.getGamePanel().changeMineRest();
