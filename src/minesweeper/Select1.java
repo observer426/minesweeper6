@@ -20,15 +20,17 @@ public class Select1 extends JFrame {
     JButton btn4 = new JButton("自定义棋盘");
     JLabel jlpic=new JLabel();
     JPanel jPanel=new JPanel();
+    ArrayList<String> playname=new ArrayList<>();
 
     public Select1(int x, int y, int mine, int[][]board, int[][]state, int nowmine, String nowturn, ArrayList<String[]>info){
-        mainFrame=new MainFrame(x,y,0,board,state,nowmine,nowturn,info);
+        mainFrame=new MainFrame(x,y,0,board,state,nowmine,nowturn,info,playname);
         mainFrame.setVisible(true);
     }
 
-    public Select1(int x,int y,int mine,int playnum){
-        this.playnum=playnum;
-        mainFrame=new MainFrame(x,y,mine,null,null,100000,null,null);
+    public Select1(int x,int y,int mine,int playnum,ArrayList<String>name1234){
+        this.playnum=Math.max(playnum,name1234.size());
+
+        mainFrame=new MainFrame(x,y,mine,null,null,100000,null,null,name1234);
         mainFrame.setVisible(true);
         this.setVisible(false);
     }
@@ -55,8 +57,9 @@ public class Select1 extends JFrame {
         btn1.setSize(150, 80);
         btn1.setLocation(10, 400);
         btn1.addActionListener(e -> {
+            playname=showCustomDialogplay(this,this);
             this.setVisible(false);
-            mainFrame = new MainFrame(9,9,10,null,null,100000,null,null);
+            mainFrame = new MainFrame(9,9,10,null,null,100000,null,null,playname);
             mainFrame.setVisible(true);
         });
         this.add(btn1);
@@ -68,8 +71,9 @@ public class Select1 extends JFrame {
         btn2.setSize(150, 80);
         btn2.setLocation(180, 400);
         btn2.addActionListener(e -> {
+            ArrayList<String> playname=showCustomDialogplay(this,this);
             this.setVisible(false);
-             mainFrame = new MainFrame(16,16,40,null,null,100000,null,null);
+             mainFrame = new MainFrame(16,16,40,null,null,100000,null,null,playname);
             mainFrame.setVisible(true);
         });
         this.add(btn2);
@@ -81,8 +85,9 @@ public class Select1 extends JFrame {
         btn3.setSize(150, 80);
         btn3.setLocation(350, 400);
         btn3.addActionListener(e -> {
+            ArrayList<String> playname=showCustomDialogplay(this,this);
             this.setVisible(false);
-            mainFrame = new MainFrame(16,30,99,null,null,100000,null,null);
+            mainFrame = new MainFrame(16,30,99,null,null,100000,null,null,playname);
             mainFrame.setVisible(true);
         });
         this.add(btn3);
@@ -94,6 +99,7 @@ public class Select1 extends JFrame {
         btn4.setSize(150, 80);
         btn4.setLocation(520, 400);
         btn4.addActionListener(e -> {
+            ArrayList<String> playname=showCustomDialogplay(this,this);
             String size=showCustomDialog(this,this);
             String[] tokens=size.split(" ");
             if (tokens.length!=3) {
@@ -104,7 +110,7 @@ public class Select1 extends JFrame {
                 int mine=Integer.parseInt(tokens[2]);
                 if (row*column<=720 && mine<=(row*column)/2){
                     this.setVisible(false);
-                    mainFrame = new MainFrame(row,column,mine,null,null,100000,null,null);
+                    mainFrame = new MainFrame(row,column,mine,null,null,100000,null,null,playname);
                     mainFrame.setVisible(true);
                 }else {
                     JOptionPane.showMessageDialog(this, "您输入的数字不合规哎", "弹窗2号",JOptionPane.WARNING_MESSAGE);
@@ -232,5 +238,78 @@ public class Select1 extends JFrame {
         return strx+" "+stry+" "+strmine;
 }
 
+    private static ArrayList<String> showCustomDialogplay(Select1 owner, Select1 parentComponent) {
+        // 创建一个模态对话框
+        final JDialog dialog = new JDialog(owner, "玩家昵称", true);
+        // 设置对话框的宽高
+        dialog.setSize(350, 80* owner.playnum);
+        // 设置对话框大小不可改变
+        dialog.setResizable(false);
+        // 设置对话框相对显示的位置
+        dialog.setLocationRelativeTo(null);
+        dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+
+        JPanel panel01 = new JPanel();
+        panel01.add(new JLabel("1号玩家"));
+        final JTextField textField1 = new JTextField(8);
+        textField1.setFont(new Font(null, Font.ITALIC , 20));
+        panel01.add(textField1);
+
+        JPanel panel02 = new JPanel();
+        final JTextField textField2 = new JTextField(8);
+        if(owner.playnum!=1)
+        { panel02.add(new JLabel("2号玩家"));
+            textField2.setFont(new Font(null, Font.ITALIC , 20));
+            panel02.add(textField2);}
+
+        JPanel panel03 = new JPanel();
+        final JTextField textField3 = new JTextField(8);
+        JPanel panel04=new JPanel();
+        final JTextField textField4 = new JTextField(8);
+        if(owner.playnum>=3){
+            panel03.add(new JLabel("3号玩家"));
+            textField3.setFont(new Font(null, Font.ITALIC , 20));
+            panel03.add(textField3);
+            if(owner.playnum==4){
+                panel04.add(new JLabel("4号玩家"));
+                textField4.setFont(new Font(null, Font.ITALIC , 20));
+                panel04.add(textField4);
+            }
+        }
+
+        JPanel panel05 = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JButton button=new JButton("我选好了");
+        button.setBackground(Color.white);
+        button.addActionListener(e -> {
+            dialog.setVisible(false);
+        });
+        panel05.add(button);
+
+        Box vBox = Box.createVerticalBox();
+        vBox.add(panel01);
+        vBox.add(panel02);
+        if(owner.playnum>=3){
+            vBox.add(panel03);
+            if(owner.playnum==4){
+                vBox.add(panel04);}}
+        vBox.add(panel05);
+
+        dialog.setContentPane(vBox);
+        dialog.pack();
+        dialog.setVisible(true);
+        ArrayList<String> name=new ArrayList<>();
+        String str1=textField1.getText();
+        String str2=textField2.getText();
+        name.add(str1);
+        name.add(str2);
+        if(owner.playnum>=3){
+            String str3=textField3.getText();
+            name.add(str3);
+            if(owner.playnum==4){
+                String str4=textField4.getText();
+                name.add(str4);
+            }}
+        return name;
+    }
 }
 

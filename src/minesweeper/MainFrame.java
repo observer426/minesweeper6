@@ -21,6 +21,7 @@ public class MainFrame extends JFrame {
     private int xCount;
     private int yCount;
     private int mineCount;
+    private int mineCountcudang;
     private JButton endBtn;
     public JTextField mineCounter;
     public JTextField title;
@@ -36,6 +37,24 @@ public class MainFrame extends JFrame {
     private ScoreBoard scoreBoard2;
     private ScoreBoard scoreBoard3;
     private ScoreBoard scoreBoard4;
+    ArrayList<String> name1234 = new ArrayList<>();
+    ArrayList<String> namefinal = new ArrayList<>();
+
+    public int getMineCount() {
+        return mineCount;
+    }
+
+    public int getMineCountcudang() {
+        return mineCountcudang;
+    }
+
+    public ArrayList<String> getNamefinal() {
+        return namefinal;
+    }
+
+    public void setNamefinal(ArrayList<String> namefinal) {
+        this.namefinal = namefinal;
+    }
 
     public void upDateMine() {
         mineCounter.setText(Integer.toString(gamePanel.getMineRest()));
@@ -50,20 +69,34 @@ public class MainFrame extends JFrame {
     }
 
     public int getpplayer(String name) {
-        if (name.equals("Kiid")) {
+        if (name.equals(name1234.get(0))) {
             return 1;
-        } else if (name.equals("Conan")) {
+        } else if (name.equals(name1234.get(1))) {
             return 2;
-        } else if (name.equals("Moon")) {
+        } else if (name.equals(name1234.get(2))) {
             return 3;
-        } else if (name.equals("Killa")) {
+        } else if (name.equals(name1234.get(3))) {
             return 4;
         } else {
-            return 0;
+            return 1;
         }
     }
 
-    public MainFrame(int x, int y, int mine, int[][] chessboard, int[][] stateboard, int mineCount2, String nowturn, ArrayList<String[]> information) {
+    public MainFrame(int x, int y, int mine, int[][] chessboard, int[][] stateboard, int mineCount2, String nowturn,
+                     ArrayList<String[]> information, ArrayList<String> name) {
+        if (name.size() != 0) {
+            namefinal = name;
+        }
+        if (information != null) {
+            mineCountcudang = 0;
+            for (int i = 0; i < x; i++) {
+                for (int j = 0; j < y; j++) {
+                    if (chessboard[i][j] == 9) {
+                        mineCountcudang++;
+                    }
+                }
+            }
+        }
         xCount = x;
         yCount = y;
         mineCount = mine;// mine count
@@ -99,42 +132,51 @@ public class MainFrame extends JFrame {
             int score4 = 0;
             int mistake4 = 0;
             int count4 = 0;
-            for (int i = 0; i < information.size() - 1; i++) {
+            for (int i = 0; i < information.size(); i++) {
                 if (i == 0) {
                     now.add(information.get(0)[0]);
 
                 }
                 if (i == 1) {
                     s1 = information.get(1);
+                    name1234.add(s1[0]);
                     score1 = Integer.parseInt(s1[1]);
                     mistake1 = Integer.parseInt(s1[2]);
                     count1 = Integer.parseInt(s1[3]);
                 }
                 if (i == 2) {
                     s2 = information.get(2);
+                    name1234.add(s2[0]);
                     score2 = Integer.parseInt(s2[1]);
                     mistake2 = Integer.parseInt(s2[2]);
                     count2 = Integer.parseInt(s2[3]);
                 }
                 if (i == 3) {
                     s3 = information.get(3);
+                    name1234.add(s3[0]);
                     score3 = Integer.parseInt(s3[1]);
                     mistake3 = Integer.parseInt(s3[2]);
                     count3 = Integer.parseInt(s3[3]);
                 }
                 if (i == 4) {
                     s4 = information.get(4);
+                    name1234.add(s4[0]);
                     score4 = Integer.parseInt(s4[1]);
                     mistake4 = Integer.parseInt(s4[2]);
                     count4 = Integer.parseInt(s4[3]);
                 }
             }
-            p1 = new Player("Kiid", score1, mistake1);
-            p2 = new Player("Conan", score2, mistake2);
-            p3 = new Player("Moon", score3, mistake3);
-            p4 = new Player("Killa", score4, mistake4);
+            if (namefinal.size() == 0) {
+                namefinal = name1234;
+            }
+            p1 = new Player(name1234.get(0), score1, mistake1);
+            p2 = new Player(name1234.get(1), score2, mistake2);
+            int max1 = Math.max(1, name1234.size() - 2);
+            int max2 = name1234.size() - 1;
+            p3 = new Player(name1234.get(max1), score3, mistake3);
+            p4 = new Player(name1234.get(max2), score4, mistake4);
 
-            if (information.size() - 1 == 2) {
+            if (information.size() - 1 == 2 && !information.get(2)[0].equals("")) {
                 controller = new GameController(p1, p2, getpplayer(now.get(0)));
                 scoreBoard1 = new ScoreBoard(p1, 1, y);//传参给计分板
                 scoreBoard2 = new ScoreBoard(p2, 2, y);//传参给计分板
@@ -146,7 +188,7 @@ public class MainFrame extends JFrame {
                 this.add(scoreBoard1);
                 this.add(scoreBoard2);
             } else if (information.size() - 2 == 2) {
-                controller = new GameController(p1, p2, p3, 1);
+                controller = new GameController(p1, p2, p3, getpplayer(now.get(0)));
                 scoreBoard1 = new ScoreBoard(p1, 1, y);//传参给计分板
                 scoreBoard2 = new ScoreBoard(p2, 2, y);//传参给计分板
                 scoreBoard3 = new ScoreBoard(p3, 3, y);
@@ -161,7 +203,7 @@ public class MainFrame extends JFrame {
                 this.add(scoreBoard2);
                 this.add(scoreBoard3);
             } else if (information.size() - 3 == 2) {
-                controller = new GameController(p1, p2, p3, p4, 1);
+                controller = new GameController(p1, p2, p3, p4, getpplayer(now.get(0)));
                 scoreBoard1 = new ScoreBoard(p1, 1, y);//传参给计分板
                 scoreBoard2 = new ScoreBoard(p2, 2, y);//传参给计分板
                 scoreBoard3 = new ScoreBoard(p3, 3, y);
@@ -179,17 +221,31 @@ public class MainFrame extends JFrame {
                 this.add(scoreBoard2);
                 this.add(scoreBoard3);
                 this.add(scoreBoard4);
+            } else {
+                controller = new GameController(p1, p2, xCount, yCount, mineCount, 1);
+                ScoreBoard scoreBoard1 = new ScoreBoard(p1, 1, yCount);//传参给计分板
+                ScoreBoard scoreBoard2 = new ScoreBoard(p2, 2, yCount);//传参给计分板
+                controller.setScoreBoard2(scoreBoard2);
+                controller.setScoreBoard1(scoreBoard1);
+                this.add(gamePanel);
+                this.add(scoreBoard1);
+                this.add(scoreBoard2);
             }
             controller.setGamePanel(gamePanel);
-        } else {
+        }
+
+
+        else {
             gamePanel = new GamePanel(xCount, yCount, mineCount);//传参给游戏面板
 
-            p1 = new Player("Kiid", 0, 0);
-            p2 = new Player("Conan", 0, 0);
-            p3 = new Player("Moon", 0, 0);
-            p4 = new Player("Killa", 0, 0);
+            p1 = new Player(name.get(0), 0, 0);
+            p2 = new Player(name.get(1), 0, 0);
+            int max1=Math.max(1,name.size()-2);
+            int max2= name.size()-1;
+            p3 = new Player(name.get(max1), 0, 0);
+            p4 = new Player(name.get(max2), 0, 0);
 
-            if (Login.select.playnum == 2) {
+            if (name.size() == 2 && !name.get(1).equals("")) {
                 controller = new GameController(p1, p2, 1);
                 scoreBoard1 = new ScoreBoard(p1, 1, yCount);//传参给计分板
                 scoreBoard2 = new ScoreBoard(p2, 2, yCount);//传参给计分板
@@ -198,7 +254,7 @@ public class MainFrame extends JFrame {
                 this.add(gamePanel);
                 this.add(scoreBoard1);
                 this.add(scoreBoard2);
-            } else if (Login.select.playnum == 3) {
+            } else if (name.size() == 3) {
                 controller = new GameController(p1, p2, p3, 1);
                 scoreBoard1 = new ScoreBoard(p1, 1, yCount);//传参给计分板
                 scoreBoard2 = new ScoreBoard(p2, 2, yCount);//传参给计分板
@@ -210,7 +266,7 @@ public class MainFrame extends JFrame {
                 this.add(scoreBoard1);
                 this.add(scoreBoard2);
                 this.add(scoreBoard3);
-            } else if (Login.select.playnum == 4) {
+            } else if (name.size() == 4) {
                 controller = new GameController(p1, p2, p3, p4, 1);
                 scoreBoard1 = new ScoreBoard(p1, 1, yCount);//传参给计分板
                 scoreBoard2 = new ScoreBoard(p2, 2, yCount);//传参给计分板
@@ -276,10 +332,10 @@ public class MainFrame extends JFrame {
         JLabel jlpic6 = setlabel1("images/yue4.png", 160, 160, 0, 0);
         layeredPane3.add(jlpic6, 1);
         if (information == null) {
-            if (Login.select.playnum == 3) {
+            if (name.size() == 3) {
                 this.getContentPane().add(layeredPane3);
             }
-        } else if (information.size() - 2 == 3) {
+        } else if (information.size() - 1 == 3) {
             this.getContentPane().add(layeredPane3);
         }
 
@@ -295,11 +351,11 @@ public class MainFrame extends JFrame {
         JLabel jlpic8 = setlabel1("images/jila4.png", 160, 160, 0, 0);
         layeredPane4.add(jlpic8, 1);
         if (information == null) {
-            if (Login.select.playnum == 4) {
+            if (name.size() == 4) {
                 this.getContentPane().add(layeredPane3);
                 this.getContentPane().add(layeredPane4);
             }
-        } else if (information.size() - 2 == 4) {
+        } else if (information.size() - 1 == 4) {
             this.getContentPane().add(layeredPane3);
             this.getContentPane().add(layeredPane4);
         }
@@ -313,26 +369,31 @@ public class MainFrame extends JFrame {
                 }
             }
             clickNum = 0;
-            if (Login.select.playnum == 2) {
+            if (namefinal.size() == 2) {
                 p1.setScore(0);
                 p2.setScore(0);
                 p1.setMistake(0);
                 p2.setMistake(0);
+                controller.setCounterP1(0);
+                controller.setCounterP2(0);
                 controller.setOnTurn(p1);
                 scoreBoard1.update(p1);
                 scoreBoard2.update(p2);
-            } else if (Login.select.playnum == 3) {
+            } else if (namefinal.size() == 3) {
                 p1.setScore(0);
                 p2.setScore(0);
                 p1.setMistake(0);
                 p2.setMistake(0);
                 p3.setScore(0);
                 p3.setMistake(0);
+                controller.setCounterP1(0);
+                controller.setCounterP2(0);
+                controller.setCounterP3(0);
                 controller.setOnTurn(p1);
                 scoreBoard1.update(p1);
                 scoreBoard2.update(p2);
                 scoreBoard3.update(p3);
-            } else if (Login.select.playnum == 4) {
+            } else if (namefinal.size() == 4) {
                 p1.setScore(0);
                 p2.setScore(0);
                 p1.setMistake(0);
@@ -341,6 +402,10 @@ public class MainFrame extends JFrame {
                 p3.setMistake(0);
                 p4.setScore(0);
                 p4.setMistake(0);
+                controller.setCounterP1(0);
+                controller.setCounterP2(0);
+                controller.setCounterP3(0);
+                controller.setCounterP4(0);
                 controller.setOnTurn(p1);
                 scoreBoard1.update(p1);
                 scoreBoard2.update(p2);
@@ -377,7 +442,11 @@ public class MainFrame extends JFrame {
                 playm = Login.select.playnum;
             }
 
-            Select1 select1 = new Select1(xCount, yCount, hasmine, playm);
+            if (name1234.size() != 0) {
+                Select1 select1 = new Select1(xCount, yCount, hasmine, playm, name1234);
+            } else {
+                Select1 select1 = new Select1(xCount, yCount, hasmine, playm, name);//构造方法
+            }
             this.setVisible(false);
         });
         this.add(againbtn2);
@@ -461,7 +530,7 @@ public class MainFrame extends JFrame {
         this.add(tool2);
 
         //道具3(本回合开始使用，效果：本回合最多只能走3步，但插旗正确之后分数加二)
-        JButton tool3=setbtn("",60,60,20,240);
+        JButton tool3 = setbtn("", 60, 60, 20, 240);
         ImageIcon rr = new ImageIcon("images/技能_缺水的碎漩狂舞.png");
         Image tempR = rr.getImage().getScaledInstance(60, 60, rr.getImage().SCALE_DEFAULT);
         rr = new ImageIcon(tempR);
@@ -473,7 +542,7 @@ public class MainFrame extends JFrame {
         tool3.setToolTipText("高价值目标：本回合行动步数最大变为3，但插旗成功后分数加2。 （每人限用3次，回合开始时使用）");
         tool3.addActionListener(e -> {
             controller.getOnTurn().changeTool3Num();
-            if (controller.getOnTurn().getTool3Num() >= 0){
+            if (controller.getOnTurn().getTool3Num() >= 0) {
                 controller.setBuff3(controller.getOnTurn());
                 System.out.println(controller.getBuff3().getUserName());
             }
@@ -614,7 +683,7 @@ public class MainFrame extends JFrame {
         endBtn.setToolTipText("结束当前回合");
         jPanel.add(endBtn);
         endBtn.addActionListener(e -> {
-            if ((information == null && Login.select.playnum == 2) || (information != null && information.size() - 1 == 2)) {
+            if ((information == null && name.size() == 2) || (information != null && information.size() - 1 == 2)) {
                 if (controller.getOnTurn() == p1 && controller.getCounterP1() != 0) {
                     controller.setOnTurn(p2);
                     if (MainFrame.controller.getBuff() != null) {
@@ -658,7 +727,7 @@ public class MainFrame extends JFrame {
                 } else {
                     JOptionPane.showMessageDialog(this, "请这位选手至少点击一个格子呦", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
                 }
-            } else if ((information == null && Login.select.playnum == 3) || (information != null && information.size() - 1 == 3)) {
+            } else if ((information == null && name.size() == 3) || (information != null && information.size() - 1 == 3)) {
                 if (controller.getOnTurn() == p1 && controller.getCounterP1() != 0) {
                     controller.setOnTurn(p2);
                     if (MainFrame.controller.getBuff() != null) {
@@ -720,7 +789,7 @@ public class MainFrame extends JFrame {
                 } else {
                     JOptionPane.showMessageDialog(this, "请这位选手至少点击一个格子呦", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
                 }
-            } else if ((information == null && Login.select.playnum == 4) || (information != null && information.size() - 1 == 4)) {
+            } else if ((information == null && name.size() == 4) || (information != null && information.size() - 1 == 4)) {
                 if (controller.getOnTurn() == p1 && controller.getCounterP1() != 0) {
                     controller.setOnTurn(p2);
                     if (MainFrame.controller.getBuff() != null) {
@@ -816,7 +885,7 @@ public class MainFrame extends JFrame {
             }
         });
         //添加地雷计数器
-        JPanel jPanelcounter = setpanel(300, 50,50 , 35*xCount+50);
+        JPanel jPanelcounter = setpanel(300, 50, 50, 35 * xCount + 50);
 
         String text1 = "剩余雷数";
         JLabel label = setlabel2(text1, 100, 30, 0, 0);
@@ -836,17 +905,17 @@ public class MainFrame extends JFrame {
         jPanelcounter.add(mineCounter);
         this.getContentPane().add(jPanelcounter);
 
-        countdown1 = setcountdonw(120, 100, 50, xCount*35+100);
+        countdown1 = setcountdonw(120, 100, 50, xCount * 35 + 100);
         this.add(countdown1);
 
-        countdown2 = setcountdonw(120, 100, 175, xCount*35+100);
+        countdown2 = setcountdonw(120, 100, 175, xCount * 35 + 100);
         this.add(countdown2);
-
-        if ((information == null && Login.select.playnum >= 3) || (information != null && information.size() - 2 >= 3)) {
-            countdown3 = setcountdonw(120, 100, 300, xCount*35+100);
+//相对位置改成绝对
+        if ((information == null && namefinal.size() >= 3) || (information != null && information.size() - 1 >= 3)) {
+            countdown3 = setcountdonw(120, 100, 300, xCount * 35 + 100);
             this.add(countdown3);
-            if ((information == null && Login.select.playnum == 4) || (information != null && information.size() - 2 == 4)) {
-                countdown4 = setcountdonw(120, 100, 425, xCount*35+100);
+            if ((information == null && namefinal.size() == 4) || (information != null && information.size() - 1 == 4)) {
+                countdown4 = setcountdonw(120, 100, 425, xCount * 35 + 100);
                 this.add(countdown4);
             }
         }

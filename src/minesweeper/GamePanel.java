@@ -83,7 +83,7 @@ public class GamePanel extends JPanel {
         this.setLayout(null);//不采用特定的布局方式
         this.setBackground(Color.WHITE);
         this.setSize(GridComponent.gridSize * y+8, GridComponent.gridSize * x+8);//雷区的大小
-        this.setLocation(625-14*y,40);
+        this.setLocation(960-17*y,80);
         mineField = new GridComponent[x][y];
         for (int i = 0; i < x; i++) {//添加格子
             for (int j = 0; j < y; j++) {
@@ -162,7 +162,7 @@ public class GamePanel extends JPanel {
         for (int i = 1; i < xCount + 1; i++) {
             for (int j = 1; j < yCount + 1; j++) {
                 if (chessboardPlus[i][j] == 9) {
-                    //可以把-1改成雷的图片
+
                 } else {
                     chessboard[i - 1][j - 1] = testNumberOfMine(chessboardPlus, i, j);
                 }

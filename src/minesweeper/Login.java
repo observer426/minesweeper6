@@ -1,7 +1,5 @@
 package minesweeper;
 
-import com.sun.org.apache.bcel.internal.generic.Select;
-import com.sun.org.apache.bcel.internal.generic.Visitor;
 import main.Main;
 
 import javax.swing.*;
@@ -16,6 +14,7 @@ public class Login extends JFrame implements ActionListener {
     public static Select1 select;
     JButton button = new JButton("开始游戏");
     JButton button1 = new JButton("读取存档");
+    JButton button2=new JButton("扫雷高玩榜");
     String text = "<html> Welcome to my <br/>   Minesweeper!<br/></html>";
     JLabel jLabel = new JLabel(text);
     JLabel jlpic = new JLabel();
@@ -50,6 +49,19 @@ public class Login extends JFrame implements ActionListener {
         button1.addActionListener(this::actionPerformed2);
         this.add(button1);
 
+        button2.setFocusable(false);        //去除按钮获得焦点时，文字周围的虚线
+        button2.setBackground(Color.white);
+        setLayout(null);
+        setVisible(true);
+        button2.setSize(170, 60);
+        button2.setLocation(300, 200);
+        button2.setContentAreaFilled(false);
+        button2.setFont(new Font("黑体", Font.ITALIC, 18));
+        button2.setForeground(Color.white);
+        button2.addActionListener(this::actionPerformed3);
+        this.add(button2);
+
+
         jLabel.setSize(340, 120);
         jLabel.setLocation(270, 50);
         jLabel.setFont(new Font("楷体", Font.ITALIC, 36));
@@ -70,6 +82,11 @@ public class Login extends JFrame implements ActionListener {
         this.setSize(766, 522);
         this.setVisible(true);
         this.setLocationRelativeTo(null);
+    }
+
+    private void actionPerformed3(ActionEvent e) {
+        List list=new List();
+        list.setVisible(true);
     }
 
     public Select1 getSelect() {

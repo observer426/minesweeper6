@@ -12,8 +12,8 @@ public class Player {
     private int mistake;
     private int tool1Num = 3;//道具1的使用次数
     private int tool2Num = 3;//道具2的使用次数
-    private int lastScore = 0;
-    private int tool3Num = 3;//记录自己上回合的score，在又轮到自己后清零。
+    private int lastScore = 0;//记录自己上回合的score，在又轮到自己后清零。
+    private int tool3Num = 3;
 
     public void changeTool1Num() {
         tool1Num--;

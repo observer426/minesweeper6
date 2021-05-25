@@ -10,12 +10,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
 import main.Main;
 import minesweeper.Select1;
+import minesweeper.MainFrame;
 
 
 public class GameController {
@@ -173,18 +173,18 @@ public class GameController {
     public void nextTurn() {
         scoreBoard1.update(onTurn);
         scoreBoard2.update(onTurn);
-        if (Login.select.playnum == 3) {
+        if (Select1.mainFrame.getNamefinal().size() == 3) {
             scoreBoard3.update(onTurn);
         }
-        if (Login.select.playnum == 4) {
+        if (Select1.mainFrame.getNamefinal().size() == 4) {
             scoreBoard3.update(onTurn);
             scoreBoard4.update(onTurn);
         }
-        if (Login.select.playnum == 2) {
+        if (Select1.mainFrame.getNamefinal().size() == 2) {
             if (onTurn == p1) {
                 counterP1++;
-                if (MainFrame.controller.getBuff3() != null){
-                    if (counterP1==3){
+                if (MainFrame.controller.getBuff3() != null) {
+                    if (counterP1 == 3) {
                         MainFrame.controller.getP2().setLastScore(0);
                         JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
                         Main.login.getSelect().getMainFrame().upDatetitle();
@@ -199,8 +199,8 @@ public class GameController {
 
             } else if (onTurn == p2) {
                 counterP2++;
-                if (MainFrame.controller.getBuff3() != null){
-                    if (counterP2==3){
+                if (MainFrame.controller.getBuff3() != null) {
+                    if (counterP2 == 3) {
                         MainFrame.controller.getP1().setLastScore(0);
                         JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
                         Main.login.getSelect().getMainFrame().upDatetitle();
@@ -213,11 +213,11 @@ public class GameController {
                 }
             }
         }
-        if (Login.select.playnum == 3) {
+        if (Select1.mainFrame.getNamefinal().size() == 3) {
             if (onTurn == p1) {
                 counterP1++;
-                if (MainFrame.controller.getBuff3() != null){
-                    if (counterP1==3){
+                if (MainFrame.controller.getBuff3() != null) {
+                    if (counterP1 == 3) {
                         JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
                         Main.login.getSelect().getMainFrame().upDatetitle();
                     }
@@ -229,8 +229,8 @@ public class GameController {
 
             } else if (onTurn == p2) {
                 counterP2++;
-                if (MainFrame.controller.getBuff3() != null){
-                    if (counterP2==3){
+                if (MainFrame.controller.getBuff3() != null) {
+                    if (counterP2 == 3) {
                         JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
                         Main.login.getSelect().getMainFrame().upDatetitle();
                     }
@@ -241,8 +241,8 @@ public class GameController {
                 }
             } else if (onTurn == p3) {
                 counterP3++;
-                if (MainFrame.controller.getBuff3() != null){
-                    if (counterP3==3){
+                if (MainFrame.controller.getBuff3() != null) {
+                    if (counterP3 == 3) {
                         JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
                         Main.login.getSelect().getMainFrame().upDatetitle();
                     }
@@ -253,11 +253,11 @@ public class GameController {
                 }
             }
         }
-        if (Login.select.playnum == 4) {
+        if (Select1.mainFrame.getNamefinal().size() == 4) {
             if (onTurn == p1) {
                 counterP1++;
-                if (MainFrame.controller.getBuff3() != null){
-                    if (counterP1==3){
+                if (MainFrame.controller.getBuff3() != null) {
+                    if (counterP1 == 3) {
                         JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
                         Main.login.getSelect().getMainFrame().upDatetitle();
                     }
@@ -269,8 +269,8 @@ public class GameController {
 
             } else if (onTurn == p2) {
                 counterP2++;
-                if (MainFrame.controller.getBuff3() != null){
-                    if (counterP2==3){
+                if (MainFrame.controller.getBuff3() != null) {
+                    if (counterP2 == 3) {
                         JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
                         Main.login.getSelect().getMainFrame().upDatetitle();
                     }
@@ -281,8 +281,8 @@ public class GameController {
                 }
             } else if (onTurn == p3) {
                 counterP3++;
-                if (MainFrame.controller.getBuff3() != null){
-                    if (counterP3==3){
+                if (MainFrame.controller.getBuff3() != null) {
+                    if (counterP3 == 3) {
                         JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
                         Main.login.getSelect().getMainFrame().upDatetitle();
                     }
@@ -293,8 +293,8 @@ public class GameController {
                 }
             } else if (onTurn == p4) {
                 counterP4++;
-                if (MainFrame.controller.getBuff3() != null){
-                    if (counterP4==3){
+                if (MainFrame.controller.getBuff3() != null) {
+                    if (counterP4 == 3) {
                         JOptionPane.showMessageDialog(gamePanel, "表演时间结束了,请点击结束按钮", "名字叫弹窗的弹窗", JOptionPane.WARNING_MESSAGE);
                         Main.login.getSelect().getMainFrame().upDatetitle();
                     }
@@ -305,10 +305,10 @@ public class GameController {
                 }
             }
         }
-        if (Login.select.playnum == 1) {
+        if (Select1.mainFrame.getNamefinal().size() == 2 && Select1.mainFrame.getNamefinal().get(1).equals("")) {
             if (onTurn == p1) {
                 counterP1++;
-                if (counterP1 == 1) {
+                if (counterP1 == 2) {
                     onTurn = p2;
                     System.out.println("Now it is " + onTurn.getUserName() + "'s turn.");//需要注意，只有人（p1）能通过检测点击调到nextTurn方法，当人的1-5次点击结束后，应该执行机器的操作，最后再把onTurn改回p1。
                     foolishComputer();
@@ -329,7 +329,7 @@ public class GameController {
             scoreBoard4.update(onTurn);
         }
         //每个回合之后，判断是否可以游戏结束
-        if (Login.select.playnum == 1 || Login.select.playnum == 2) {
+        if (Select1.mainFrame.getNamefinal().size() == 2) {
             String message;
             if (Math.abs(p1.getScore() - p2.getScore()) > gamePanel.getMineRest()) {
                 //这个if包括了
@@ -338,20 +338,30 @@ public class GameController {
                 Music.play4();
                 if (p1.getScore() > p2.getScore()) {
                     message = "恭喜" + p1.getUserName() + "获得胜利！";
-
+                    setlist(p1);
                 } else {
-                    message = "恭喜" + p2.getUserName() + "获得胜利！";
-
+                    if (p2.getUserName().equals("")) {
+                        message = "恭喜你被机器打败啦";
+                    } else {
+                        message = "恭喜" + p2.getUserName() + "获得胜利！";
+                        setlist(p2);
+                    }
                 }
                 showCustomDialog(Select1.mainFrame, Select1.mainFrame, message);
                 //JOptionPane.showMessageDialog(Select1.mainFrame,message,"GAME OVER",JOptionPane.INFORMATION_MESSAGE);
             } else if (gamePanel.getMineRest() == 0 && p1.getScore() == p2.getScore()) {
                 Music.play4();
                 if (p1.getMistake() > p2.getMistake()) {
-                    message = "恭喜" + p2.getUserName() + "获得胜利！";
+                    if (p2.getUserName().equals("")) {
+                        message = "恭喜你被机器打败啦";
+                    } else {
+                        message = "恭喜" + p2.getUserName() + "获得胜利！";
+                        setlist(p2);
+                    }
                     showCustomDialog(Select1.mainFrame, Select1.mainFrame, message);
                 } else if (p1.getMistake() < p2.getMistake()) {
                     message = "恭喜" + p1.getUserName() + "获得胜利！";
+                    setlist(p1);
                     showCustomDialog(Select1.mainFrame, Select1.mainFrame, message);
                 } else {
                     showCustomDialog(Select1.mainFrame, Select1.mainFrame, "两位势均力敌！不如再来一盘？");
@@ -359,17 +369,17 @@ public class GameController {
             }
         } else {
             //每回合排序，取前两名
-            Player[] players = new Player[Login.select.playnum];
+            Player[] players = new Player[Select1.mainFrame.getNamefinal().size()];
             players[0] = p1;
             players[1] = p2;
             players[2] = p3;
-            if (Login.select.playnum == 4) {
+            if (Select1.mainFrame.getNamefinal().size() == 4) {
                 players[3] = p4;
             }
 
             //从小到大
-            for (int i = 0; i < Login.select.playnum; i++) {
-                for (int j = 0; j < Login.select.playnum - 1 - i; j++) {
+            for (int i = 0; i < Select1.mainFrame.getNamefinal().size(); i++) {
+                for (int j = 0; j < Select1.mainFrame.getNamefinal().size() - 1 - i; j++) {
                     if (players[j].getScore() > players[j + 1].getScore()) {
                         Player temp = players[j];
                         players[j] = players[j + 1];
@@ -395,10 +405,10 @@ public class GameController {
             Music.play4();
             if (p1.getScore() > p2.getScore()) {
                 message = "恭喜" + p1.getUserName() + "获得胜利！";
-
+                setlist(p1);
             } else {
                 message = "恭喜" + p2.getUserName() + "获得胜利！";
-
+                setlist(p2);
             }
             showCustomDialog(Select1.mainFrame, Select1.mainFrame, message);
             //JOptionPane.showMessageDialog(Select1.mainFrame,message,"GAME OVER",JOptionPane.INFORMATION_MESSAGE);
@@ -406,9 +416,11 @@ public class GameController {
             Music.play4();
             if (p1.getMistake() > p2.getMistake()) {
                 message = "恭喜" + p2.getUserName() + "获得胜利！";
+                setlist(p2);
                 showCustomDialog(Select1.mainFrame, Select1.mainFrame, message);
             } else if (p1.getMistake() < p2.getMistake()) {
                 message = "恭喜" + p1.getUserName() + "获得胜利！";
+                setlist(p1);
                 showCustomDialog(Select1.mainFrame, Select1.mainFrame, message);
             } else {
                 showCustomDialog(Select1.mainFrame, Select1.mainFrame, "这都能平局？再来一盘吧！");
@@ -439,8 +451,10 @@ public class GameController {
                 // 关闭对话框
                 dialog.dispose();
                 //游戏界面不可见
+
                 Select1.mainFrame.setVisible(false);
-                Main.login.getSelect().setVisible(true);
+                Select1 select1 = new Select1();
+                select1.setVisible(true);
             }
         });
 
@@ -500,11 +514,9 @@ public class GameController {
                                         MainFrame.controller.getGamePanel().changeMineRest();
                                         Main.login.getSelect().getMainFrame().upDateMine();
                                         Main.login.getSelect().getMainFrame().gamePanel.addCount();
-
                                         test = true;
                                         break Outer;
                                     } else {//安全格
-//                                        System.out.println(55);
                                         Music.play1();
                                         gamePanel.getMineField()[k + gridComponent.getRow()][l + gridComponent.getCol()].recursion(gamePanel.getMineField()[k + gridComponent.getRow()][l + gridComponent.getCol()]);
                                         gamePanel.getMineField()[k + gridComponent.getRow()][l + gridComponent.getCol()].repaint();
@@ -525,7 +537,6 @@ public class GameController {
             }
         }//如果一步也没走，再看概率，
         if (!test) {
-//            System.out.println(99);
             Outer:
             for (int i = -1; (i + goalComponent.getRow() < xCount) && i < 2; i++) {
                 if (i + goalComponent.getRow() < 0) {
@@ -692,9 +703,9 @@ public class GameController {
                 out.write(onTurn.getUserName() + "\n");
                 out.write(p1.getUserName() + " " + p1.getScore() + " " + p1.getMistake() + " " + getCounterP1() + "\n");
                 out.write(p2.getUserName() + " " + p2.getScore() + " " + p2.getMistake() + " " + getCounterP1() + "\n");
-                if (Login.select.playnum >= 3) {
+                if (Select1.mainFrame.getNamefinal().size() >= 3) {
                     out.write(p3.getUserName() + " " + p3.getScore() + " " + p3.getMistake() + " " + getCounterP3() + "\n");
-                    if (Login.select.playnum == 4) {
+                    if (Select1.mainFrame.getNamefinal().size() == 4) {
                         out.write(p4.getUserName() + " " + p4.getScore() + " " + p4.getMistake() + " " + getCounterP4() + "\n");
                     }
                 }
@@ -705,11 +716,38 @@ public class GameController {
         }
     }
 
+    public void writeDataToFilelist(String fileName, String playername, int score, int mineCount) {
+        try {
+            try (FileWriter writer = new FileWriter(fileName, true);
+                 BufferedWriter out = new BufferedWriter(writer)
+            ) {
+                out.write(playername);
+                out.write(" ");
+                out.write(Integer.toString(score));
+                out.write(" ");
+                out.write(Integer.toString(mineCount));
+                out.write("\n");
+                out.flush();// 把缓存区内容压入文件
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public Player getP3() {
         return p3;
     }
 
     public Player getP4() {
         return p4;
+    }
+
+    private void setlist(Player player) {
+        if (Select1.mainFrame.getMineCount() != 0) {
+            this.writeDataToFilelist("list.txt", player.getUserName(), player.getScore(), Select1.mainFrame.getMineCount());
+        } else {
+            this.writeDataToFilelist("list.txt", player.getUserName(), player.getScore(), Select1.mainFrame.getMineCountcudang());
+        }
     }
 }
