@@ -27,8 +27,9 @@ public class Music {
     }
     public static void stop()
     {
-        if(ais!=null)
+        if(ais!=null){
             bgm.close();
+        }
 }
 public static void play1(){
         try {

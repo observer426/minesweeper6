@@ -150,8 +150,10 @@ public class GamePanel extends JPanel {
                 int mineY = mineYCoordinate.get(i);
                 chessboard[mineX][mineY] = 9;
             }
-
+            System.out.println("当这行语句打印至少两次时，证明触发了密集置雷重新生成的操作。");
         } while (!testDensity(chessboard));
+        //testDensity为检测3*3是否全是雷，当存在这种情况时，返回false，并重新生成棋盘，知道testDensity为true时停止。
+
         //后边写对其他数的填充
         int[][] chessboardPlus = new int[xCount + 2][yCount + 2];
         for (int i = 1; i < xCount + 1; i++) {

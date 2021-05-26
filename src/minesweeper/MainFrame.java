@@ -84,6 +84,38 @@ public class MainFrame extends JFrame {
 
     public MainFrame(int x, int y, int mine, int[][] chessboard, int[][] stateboard, int mineCount2, String nowturn,
                      ArrayList<String[]> information, ArrayList<String> name) {
+        final JDialog dialog = new JDialog(this, "寻钻之旅", true);
+        // 设置对话框的宽高
+        dialog.setSize(400, 300);
+        // 设置对话框大小不可改变
+        dialog.setResizable(false);
+        // 设置对话框相对显示的位置
+        dialog.setLocationRelativeTo(null);
+        dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        JTextArea textArea = new JTextArea("         前情提要\n  在很久很久很久以前，传言一颗质量为3106克拉的大钻石于南非出现，被命名为非洲之星。保存在英国的白金汉宫。从那以后，周围的各路大盗层出不穷，但都没有成功。但是这次情况不同了，" +
+                "已经金盆洗手的怪盗基德决定重出江湖" + "染指其中。正派力量听闻风声后，紧跟着出动了，其中就包括了名侦探柯南，夜神月，基拉等人。这颗钻石的周围遍布着雷区，以保护钻石安全，到底是怪盗基德首先突破雷区，" +
+                "夺走钻石，还是各路名侦探成功拦截，保护住非洲之星的安全呢？让我们拭目以待。");
+        textArea.setOpaque(false);
+        textArea.setEditable(false);
+        textArea.setLineWrap(true);                         // 自动换行
+        textArea.setFont(new Font("黑体", Font.PLAIN, 30));   // 设置字体
+
+        // 创建滚动面板, 指定滚动显示的视图组件(textArea), 垂直滚动条一直显示, 水平滚动条从不显示
+        JScrollPane scrollPane = new JScrollPane(
+                textArea,
+                ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setOpaque(false);
+        scrollPane.setForeground(Color.white);
+        scrollPane.setLocation(0,250);
+        scrollPane.setSize(400,200);
+        dialog.add(scrollPane);
+
+
+        dialog.setVisible(true);
+
+
         if (name.size() != 0) {
             namefinal = name;
         }
@@ -232,16 +264,13 @@ public class MainFrame extends JFrame {
                 this.add(scoreBoard2);
             }
             controller.setGamePanel(gamePanel);
-        }
-
-
-        else {
+        } else {
             gamePanel = new GamePanel(xCount, yCount, mineCount);//传参给游戏面板
 
             p1 = new Player(name.get(0), 0, 0);
             p2 = new Player(name.get(1), 0, 0);
-            int max1=Math.max(1,name.size()-2);
-            int max2= name.size()-1;
+            int max1 = Math.max(1, name.size() - 2);
+            int max2 = name.size() - 1;
             p3 = new Player(name.get(max1), 0, 0);
             p4 = new Player(name.get(max2), 0, 0);
 
@@ -558,7 +587,7 @@ public class MainFrame extends JFrame {
         this.add(againbtn3);
 
         JPanel jPanel = new JPanel();
-        jPanel.setSize(400, 150);
+        jPanel.setSize(400, 900);
         jPanel.setLocation(1520, 10);
         jPanel.setLayout(null);
         jPanel.setOpaque(false);
@@ -572,7 +601,7 @@ public class MainFrame extends JFrame {
         slider.setSnapToTicks(true);
         slider.setOpaque(false);
         slider.setSize(120, 50);
-        slider.setLocation(220, 100);
+        slider.setLocation(190, 850);
         jPanel.add(slider);
         Hashtable<Integer, JComponent> hashtable = new Hashtable<>();
         JLabel open = new JLabel("Music");
@@ -885,7 +914,7 @@ public class MainFrame extends JFrame {
             }
         });
         //添加地雷计数器
-        JPanel jPanelcounter = setpanel(300, 50, 50, 35 * xCount + 50);
+        JPanel jPanelcounter = setpanel(300, 50, 50, 750);
 
         String text1 = "剩余雷数";
         JLabel label = setlabel2(text1, 100, 30, 0, 0);
@@ -905,17 +934,17 @@ public class MainFrame extends JFrame {
         jPanelcounter.add(mineCounter);
         this.getContentPane().add(jPanelcounter);
 
-        countdown1 = setcountdonw(120, 100, 50, xCount * 35 + 100);
+        countdown1 = setcountdonw(120, 100, 50, 800);
         this.add(countdown1);
 
-        countdown2 = setcountdonw(120, 100, 175, xCount * 35 + 100);
+        countdown2 = setcountdonw(120, 100, 175, 800);
         this.add(countdown2);
-//相对位置改成绝对
+
         if ((information == null && namefinal.size() >= 3) || (information != null && information.size() - 1 >= 3)) {
-            countdown3 = setcountdonw(120, 100, 300, xCount * 35 + 100);
+            countdown3 = setcountdonw(120, 100, 300, 800);
             this.add(countdown3);
             if ((information == null && namefinal.size() == 4) || (information != null && information.size() - 1 == 4)) {
-                countdown4 = setcountdonw(120, 100, 425, xCount * 35 + 100);
+                countdown4 = setcountdonw(120, 100, 425, 800);
                 this.add(countdown4);
             }
         }
@@ -923,7 +952,7 @@ public class MainFrame extends JFrame {
 
         title = new JTextField(controller.getOnTurn().getUserName() + " : Hey, It's my turn to perform");
         title.setSize(450, 40);
-        title.setLocation(735, 40);
+        title.setLocation(735, 20);
         title.setEditable(false);
         title.setBackground(Color.white);
         title.setFont(new Font("黑体", Font.ITALIC, 24));
@@ -940,6 +969,8 @@ public class MainFrame extends JFrame {
         backpanel.add(background1, 1);
         JLabel background2 = setlabel1("images/wallhaven.png", 1920, 1080, 0, 0);
         backpanel.add(background2, 0);
+        JLabel background3 = setlabel1("images/QQ图片20210525220844.jpg", 1920, 1080, 0, 0);
+        backpanel.add(background3, 1);
 
         JButton wallBtn = setbtn("", 60, 60, 1420, 10);
         ImageIcon kk = new ImageIcon("images/u=3950320399,1109744909&fm=26&gp=0.jpg");
@@ -953,14 +984,21 @@ public class MainFrame extends JFrame {
         wallBtn.setToolTipText("壁纸");
 
         wallBtn.addActionListener(e -> {
-            if (clickwall % 2 == 0) {
+            clickwall++;
+            if (clickwall % 3 == 1) {
                 backpanel.setPosition(background1, 0);
                 backpanel.setPosition(background2, 1);
-            } else {
+                backpanel.setPosition(background3, 1);
+            } else if (clickwall % 3 == 2) {
+                backpanel.setPosition(background1, 1);
+                backpanel.setPosition(background2, 1);
+                backpanel.setPosition(background3, 0);
+            } else{
                 backpanel.setPosition(background1, 1);
                 backpanel.setPosition(background2, 0);
+                backpanel.setPosition(background3, 1);
             }
-            clickwall++;
+
         });
         this.add(wallBtn);
 

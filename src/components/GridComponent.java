@@ -87,7 +87,7 @@ public class GridComponent extends BasicComponent {
                     Music.play3();
                     MainFrame.controller.getOnTurn().minusLastScore();
                     MainFrame.controller.getOnTurn().costScore();
-                    MainFrame.controller.getOnTurn().addMistake();
+//                    MainFrame.controller.getOnTurn().addMistake();
                     MainFrame.controller.getGamePanel().changeMineRest();
                     Main.login.getSelect().getMainFrame().upDateMine();
                     MainFrame.controller.nextTurn();
@@ -166,6 +166,7 @@ public class GridComponent extends BasicComponent {
         } else {
             Music.play3();
             MainFrame.controller.getOnTurn().addMistake();
+            MainFrame.controller.getOnTurn().costScore();
             this.status = GridStatus.Clicked;
             repaint();
         }
@@ -197,13 +198,15 @@ public class GridComponent extends BasicComponent {
     }
 
     public void recursion(GridComponent gridComponent) {
+        //思路：我给gamepanel设置了一个计数器，用来记录点击次数，当首次点击时调用重新生成棋盘的方法
         gridComponent.clickNum++;
         if (gridComponent.getContent() == 9) {//雷
             //首发触雷
             if (Main.login.getSelect().getMainFrame().gamePanel.getCount() == 1) {
                 while (getContent() == 9) {
+                    System.out.println("如果该行语句出现一次以上，证明首发触雷且重新生成了雷");
                     int[][] chessboard = MainFrame.controller.getGamePanel().generateChessBoard(xCount, yCount, mineCount);
-                    MainFrame.controller.getGamePanel().changeContent(chessboard, xCount, yCount);
+                    MainFrame.controller.getGamePanel().changeContent(chessboard, xCount, yCount);//把数字换掉
                 }
             }
 //            this.status = GridStatus.Clicked;

@@ -337,13 +337,13 @@ public class GameController {
                 // 剩余雷为0时，分数不相等的情况
                 Music.play4();
                 if (p1.getScore() > p2.getScore()) {
-                    message = "恭喜" + p1.getUserName() + "获得胜利！";
+                    message = "恭喜" + p1.getUserName() + "偷走宝石！";
                     setlist(p1);
                 } else {
                     if (p2.getUserName().equals("")) {
-                        message = "恭喜你被机器打败啦";
+                        message = "你这大盗也太拉了";
                     } else {
-                        message = "恭喜" + p2.getUserName() + "获得胜利！";
+                        message = "恭喜" + p2.getUserName() + "成功拦截！";
                         setlist(p2);
                     }
                 }
@@ -353,18 +353,18 @@ public class GameController {
                 Music.play4();
                 if (p1.getMistake() > p2.getMistake()) {
                     if (p2.getUserName().equals("")) {
-                        message = "恭喜你被机器打败啦";
+                        message = "你这大盗也太拉了";
                     } else {
-                        message = "恭喜" + p2.getUserName() + "获得胜利！";
+                        message = "恭喜" + p2.getUserName() + "成功拦截！";
                         setlist(p2);
                     }
                     showCustomDialog(Select1.mainFrame, Select1.mainFrame, message);
                 } else if (p1.getMistake() < p2.getMistake()) {
-                    message = "恭喜" + p1.getUserName() + "获得胜利！";
+                    message = "恭喜" + p1.getUserName() + "偷走宝石！";
                     setlist(p1);
                     showCustomDialog(Select1.mainFrame, Select1.mainFrame, message);
                 } else {
-                    showCustomDialog(Select1.mainFrame, Select1.mainFrame, "两位势均力敌！不如再来一盘？");
+                    showCustomDialog(Select1.mainFrame, Select1.mainFrame, "宝石竟然不翼而飞，继续追击！");
                 }
             }
         } else {
@@ -404,10 +404,10 @@ public class GameController {
             // 剩余雷为0时，分数不相等的情况
             Music.play4();
             if (p1.getScore() > p2.getScore()) {
-                message = "恭喜" + p1.getUserName() + "获得胜利！";
+                message = "恭喜" + p1.getUserName() + "偷走宝石！";
                 setlist(p1);
             } else {
-                message = "恭喜" + p2.getUserName() + "获得胜利！";
+                message = "恭喜" + p2.getUserName() + "成功拦截！";
                 setlist(p2);
             }
             showCustomDialog(Select1.mainFrame, Select1.mainFrame, message);
@@ -415,15 +415,15 @@ public class GameController {
         } else if (gamePanel.getMineRest() == 0 && p1.getScore() == p2.getScore()) {
             Music.play4();
             if (p1.getMistake() > p2.getMistake()) {
-                message = "恭喜" + p2.getUserName() + "获得胜利！";
+                message = "恭喜" + p2.getUserName() + "成功拦截！";
                 setlist(p2);
                 showCustomDialog(Select1.mainFrame, Select1.mainFrame, message);
             } else if (p1.getMistake() < p2.getMistake()) {
-                message = "恭喜" + p1.getUserName() + "获得胜利！";
+                message = "恭喜" + p1.getUserName() + "偷走宝石！";
                 setlist(p1);
                 showCustomDialog(Select1.mainFrame, Select1.mainFrame, message);
             } else {
-                showCustomDialog(Select1.mainFrame, Select1.mainFrame, "这都能平局？再来一盘吧！");
+                showCustomDialog(Select1.mainFrame, Select1.mainFrame, "宝石竟然不翼而飞，继续追击！");
             }
         }
     }
@@ -433,7 +433,7 @@ public class GameController {
         // 创建一个模态对话框
         final JDialog dialog = new JDialog(owner, "GAME OVER", true);
         // 设置对话框的宽高
-        dialog.setSize(250, 100);
+        dialog.setSize(300, 300);
         // 设置对话框大小不可改变
         dialog.setResizable(false);
         // 设置对话框相对显示的位置
@@ -441,7 +441,8 @@ public class GameController {
 
         // 创建一个标签显示消息内容
         JLabel messageLabel = new JLabel(message);
-
+        messageLabel.setLocation(120,300);
+        messageLabel.setFont(new Font("黑体",Font.ITALIC,18));
         // 创建一个按钮用于关闭对话框
         JButton returnBtn = new JButton("返回主界面");
         returnBtn.setFocusable(false);
@@ -460,7 +461,10 @@ public class GameController {
 
         // 创建对话框的内容面板, 在面板内可以根据自己的需要添加任何组件并做任意是布局
         JPanel panel = new JPanel();
-
+        panel.setSize(300,200);
+        panel.setLocation(0,0);
+        JLabel jlpicIcon = setlabel1("images/zs.png", 160, 160, 0, 0);
+        panel.add(jlpicIcon);
         panel.add(messageLabel);
         panel.add(returnBtn);
 
@@ -469,6 +473,9 @@ public class GameController {
         // 显示对话框
         dialog.setVisible(true);
     }
+
+
+
 
     public void foolishComputer() {
 
@@ -702,7 +709,7 @@ public class GameController {
                 out.write(Integer.toString(gamePanel.getMineRest()) + "\n");
                 out.write(onTurn.getUserName() + "\n");
                 out.write(p1.getUserName() + " " + p1.getScore() + " " + p1.getMistake() + " " + getCounterP1() + "\n");
-                out.write(p2.getUserName() + " " + p2.getScore() + " " + p2.getMistake() + " " + getCounterP1() + "\n");
+                out.write(p2.getUserName() + " " + p2.getScore() + " " + p2.getMistake() + " " + getCounterP2() + "\n");
                 if (Select1.mainFrame.getNamefinal().size() >= 3) {
                     out.write(p3.getUserName() + " " + p3.getScore() + " " + p3.getMistake() + " " + getCounterP3() + "\n");
                     if (Select1.mainFrame.getNamefinal().size() == 4) {
@@ -749,5 +756,13 @@ public class GameController {
         } else {
             this.writeDataToFilelist("list.txt", player.getUserName(), player.getScore(), Select1.mainFrame.getMineCountcudang());
         }
+    }
+    public static JLabel setlabel1(String road, int width, int hight, int x, int y) {
+        JLabel label = new JLabel();
+        label.setSize(width, hight);
+        label.setLocation(x, y);
+        ImageIcon icon = new ImageIcon(road);
+        label.setIcon(icon);
+        return label;
     }
 }
