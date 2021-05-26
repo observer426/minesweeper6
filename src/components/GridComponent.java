@@ -23,7 +23,7 @@ public class GridComponent extends BasicComponent {
     private int yCount;
     private int mineCount;
     private int clickNum = 0;
-    private boolean flagTest=false;
+    private boolean flagTest=false;//表示未标旗
 
     public void setFlagTest(boolean flagTest) {
         this.flagTest = flagTest;

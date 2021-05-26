@@ -454,8 +454,8 @@ public class GameController {
                 //游戏界面不可见
 
                 Select1.mainFrame.setVisible(false);
-                Select1 select1 = new Select1();
-                select1.setVisible(true);
+                Login login = new Login();
+                login.setVisible(true);
             }
         });
 

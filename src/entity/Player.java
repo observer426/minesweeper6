@@ -15,6 +15,18 @@ public class Player {
     private int lastScore = 0;//记录自己上回合的score，在又轮到自己后清零。
     private int tool3Num = 3;
 
+    public void setTool1Num(int tool1Num) {
+        this.tool1Num = tool1Num;
+    }
+
+    public void setTool2Num(int tool2Num) {
+        this.tool2Num = tool2Num;
+    }
+
+    public void setTool3Num(int tool3Num) {
+        this.tool3Num = tool3Num;
+    }
+
     public void changeTool1Num() {
         tool1Num--;
     }

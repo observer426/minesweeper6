@@ -60,6 +60,11 @@ public class MainFrame extends JFrame {
         mineCounter.setText(Integer.toString(gamePanel.getMineRest()));
     }
 
+    public void upDateMine(int a) {
+        mineCount = a;
+        mineCounter.setText(Integer.toString(mineCount));
+    }
+
     public void upDatetitle() {
         title.setText(controller.getOnTurn().getUserName() + " : Hey, It's my turn to perform");
     }
@@ -108,8 +113,8 @@ public class MainFrame extends JFrame {
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setOpaque(false);
         scrollPane.setForeground(Color.white);
-        scrollPane.setLocation(0,250);
-        scrollPane.setSize(400,200);
+        scrollPane.setLocation(0, 250);
+        scrollPane.setSize(400, 200);
         dialog.add(scrollPane);
 
 
@@ -390,14 +395,36 @@ public class MainFrame extends JFrame {
         }
         JButton againbtn1 = setbtn("重新开始", 100, 30, 5, 5);
         againbtn1.addActionListener(e -> {
+            int hasmine = 0;
+            for (int i = 0; i < xCount; i++) {
+                for (int j = 0; j < yCount; j++) {
+                    if (gamePanel.getMineField()[i][j].getContent() == 9) {
+                        hasmine++;
+                    }
+                }
+            }
             for (int i = 0; i < xCount; i++) {
                 for (int j = 0; j < yCount; j++) {
                     gamePanel.getMineField()[i][j].setStatus(GridStatus.Covered);
                     gamePanel.getMineField()[i][j].repaint();
                     gamePanel.getMineField()[i][j].setClickNum(0);
+                    gamePanel.getMineField()[i][j].setFlagTest(false);
                 }
             }
             clickNum = 0;
+            if (chessboard != null) {
+                gamePanel.setMineRest(hasmine);
+                upDateMine(hasmine);
+            } else {
+                gamePanel.setMineRest(gamePanel.getMine());
+                upDateMine();
+            }
+            p1.setTool1Num(3);
+            p1.setTool2Num(3);
+            p1.setTool3Num(3);
+            p2.setTool1Num(3);
+            p2.setTool2Num(3);
+            p2.setTool3Num(3);
             if (namefinal.size() == 2) {
                 p1.setScore(0);
                 p2.setScore(0);
@@ -408,6 +435,7 @@ public class MainFrame extends JFrame {
                 controller.setOnTurn(p1);
                 scoreBoard1.update(p1);
                 scoreBoard2.update(p2);
+                upDatetitle();
             } else if (namefinal.size() == 3) {
                 p1.setScore(0);
                 p2.setScore(0);
@@ -415,6 +443,9 @@ public class MainFrame extends JFrame {
                 p2.setMistake(0);
                 p3.setScore(0);
                 p3.setMistake(0);
+                p3.setTool1Num(3);
+                p3.setTool2Num(3);
+                p3.setTool3Num(3);
                 controller.setCounterP1(0);
                 controller.setCounterP2(0);
                 controller.setCounterP3(0);
@@ -422,6 +453,7 @@ public class MainFrame extends JFrame {
                 scoreBoard1.update(p1);
                 scoreBoard2.update(p2);
                 scoreBoard3.update(p3);
+                upDatetitle();
             } else if (namefinal.size() == 4) {
                 p1.setScore(0);
                 p2.setScore(0);
@@ -429,6 +461,12 @@ public class MainFrame extends JFrame {
                 p2.setMistake(0);
                 p3.setScore(0);
                 p3.setMistake(0);
+                p3.setTool1Num(3);
+                p3.setTool2Num(3);
+                p3.setTool3Num(3);
+                p4.setTool1Num(3);
+                p4.setTool2Num(3);
+                p4.setTool3Num(3);
                 p4.setScore(0);
                 p4.setMistake(0);
                 controller.setCounterP1(0);
@@ -440,6 +478,7 @@ public class MainFrame extends JFrame {
                 scoreBoard2.update(p2);
                 scoreBoard3.update(p3);
                 scoreBoard4.update(p4);
+                upDatetitle();
             } else if (Login.select.playnum == 1) {
                 p1.setScore(0);
                 p2.setScore(0);
@@ -448,6 +487,7 @@ public class MainFrame extends JFrame {
                 controller.setOnTurn(p1);
                 scoreBoard1.update(p1);
                 scoreBoard2.update(p2);
+                upDatetitle();
             }
             mineCounter.setText(Integer.toString(mineCount));
         });
@@ -522,36 +562,43 @@ public class MainFrame extends JFrame {
             Random random = new Random();
             //0表示扣分，1表示抢分
             int judge = random.nextInt(2);
-            controller.getOnTurn().changeTool2Num();
-            if (controller.getOnTurn().getTool2Num() >= 0) {
-                if (judge == 0) {
-                    controller.getOnTurn().costScore();
-                    controller.getOnTurn().costScore();
-                    if (controller.getOnTurn().equals(p1)) {
-                        scoreBoard1.update(p1);
-                    } else if (controller.getOnTurn().equals(p2)) {
-                        scoreBoard2.update(p2);
-                    } else if (controller.getOnTurn().equals(p3)) {
-                        scoreBoard3.update(p3);
-                    } else scoreBoard4.update(p4);
-                    JOptionPane.showMessageDialog(gamePanel, "这是给贪婪之人的惩罚！(你的分数减2)", "谶言", JOptionPane.WARNING_MESSAGE);
-                } else {
-                    int score = controller.getOnTurn().getScore();//当前玩家得分；
-                    if (controller.getOnTurn().equals(p1)) {
-                        int scoreP2 = controller.getP2().getScore();
-                        int bonus = controller.getP2().getLastScore();//上家得分
-                        controller.getOnTurn().setScore(score + bonus);
-                        controller.getP2().setScore(scoreP2 - bonus);
+            int countNum = 0;
+            if (countNum == 0) {
+                controller.getOnTurn().changeTool2Num();
+                if (controller.getOnTurn().getTool2Num() >= 0) {
+                    if (judge == 0) {
+                        controller.getOnTurn().costScore();
+                        controller.getOnTurn().costScore();
+                        if (controller.getOnTurn().equals(p1)) {
+                            scoreBoard1.update(p1);
+                        } else if (controller.getOnTurn().equals(p2)) {
+                            scoreBoard2.update(p2);
+                        } else if (controller.getOnTurn().equals(p3)) {
+                            scoreBoard3.update(p3);
+                        } else scoreBoard4.update(p4);
+                        JOptionPane.showMessageDialog(gamePanel, "这是给贪婪之人的惩罚！(你的分数减2)", "谶言", JOptionPane.WARNING_MESSAGE);
                     } else {
-                        int scoreP1 = controller.getP1().getScore();
-                        int bonus = controller.getP1().getLastScore();//上家得分
-                        controller.getOnTurn().setScore(score + bonus);
-                        controller.getP1().setScore(scoreP1 - bonus);
+                        countNum++;
+                        int score = controller.getOnTurn().getScore();//当前玩家得分；
+                        if (controller.getOnTurn().equals(p1)) {
+                            int scoreP2 = controller.getP2().getScore();
+                            int bonus = controller.getP2().getLastScore();//上家得分
+                            controller.getOnTurn().setScore(score + bonus);
+                            controller.getP2().setScore(scoreP2 - bonus);
+                        } else {
+                            int scoreP1 = controller.getP1().getScore();
+                            int bonus = controller.getP1().getLastScore();//上家得分
+                            controller.getOnTurn().setScore(score + bonus);
+                            controller.getP1().setScore(scoreP1 - bonus);
+                        }
+                        scoreBoard1.update(p1);
+                        scoreBoard2.update(p2);
+                        JOptionPane.showMessageDialog(gamePanel, "感受恩赐吧！（你窃取了上家上轮得分）", "谶言", JOptionPane.WARNING_MESSAGE);
                     }
-                    scoreBoard1.update(p1);
-                    scoreBoard2.update(p2);
-                    JOptionPane.showMessageDialog(gamePanel, "感受恩赐吧！（你窃取了上家上轮得分）", "谶言", JOptionPane.WARNING_MESSAGE);
                 }
+            }else {
+                JOptionPane.showMessageDialog(gamePanel, "他已经一滴都不剩了。", "谶言", JOptionPane.WARNING_MESSAGE);
+                countNum=0;
             }
 
 
@@ -993,7 +1040,7 @@ public class MainFrame extends JFrame {
                 backpanel.setPosition(background1, 1);
                 backpanel.setPosition(background2, 1);
                 backpanel.setPosition(background3, 0);
-            } else{
+            } else {
                 backpanel.setPosition(background1, 1);
                 backpanel.setPosition(background2, 0);
                 backpanel.setPosition(background3, 1);

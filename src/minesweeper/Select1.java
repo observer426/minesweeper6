@@ -329,7 +329,6 @@ public class Select1 extends JFrame {
             test=false;
         }
         for (int i = 0; i < str.length(); i++) {
-            System.out.println(str.charAt(i));
             if (!Character.isDigit(str.charAt(i))) {
                 test= false;
                 break;
